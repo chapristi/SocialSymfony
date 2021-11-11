@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('add_friend',{token: user.token}) }}">
+     <img src="{{ asset('assets/img/add-friend.png') }}" width="30px" height="30px" class="friend-icon">
+    </a>
+
+{% endblock %}

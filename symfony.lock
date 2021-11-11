@@ -1,4 +1,7 @@
 {
+    "brick/math": {
+        "version": "0.9.3"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
@@ -161,6 +164,12 @@
     },
     "psr/log": {
         "version": "2.0.0"
+    },
+    "ramsey/collection": {
+        "version": "1.2.2"
+    },
+    "ramsey/uuid": {
+        "version": "4.2.3"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.4",
@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
         "phpdocumentor/reflection-docblock": "^5.3",
+        "ramsey/uuid": "^4.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",

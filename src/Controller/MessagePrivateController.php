@@ -6,7 +6,6 @@ use App\Entity\BFF;
 use App\Entity\MessagePrivate;
 use App\Form\MessagePrivateType;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +38,7 @@ class MessagePrivateController extends AbstractController
             if ($this -> getUser() === $friend -> getSender()){
                 $PrivateMessages -> setReceiver($friend -> getReceiver());
             }else{
-                $PrivateMessages -> setReceiver($friend -> getReceiver());
+                $PrivateMessages -> setReceiver($friend -> getSender());
 
             }
             $this ->  getDoctrine() -> getManager() -> persist($PrivateMessages);

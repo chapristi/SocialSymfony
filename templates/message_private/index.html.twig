@@ -4,5 +4,13 @@
 
 {% block body %}
 
+    {{ form_start(form) }}
+        {{ form_row(form.message) }}
+
+
+        <button type="submit" class="btn btn-primary">envoyer</button>
+    {{ form_end(form) }}
+
+
 
 {% endblock %}

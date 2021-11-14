@@ -10,8 +10,6 @@
         <input type="text" class="form-control" id="text"  placeholder="Enter a message">
     </div>
 
-
-
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 {% block javascript %}
@@ -21,28 +19,16 @@
             let texte = document.querySelector("#text")
             texte.addEventListener("keyup",verifieEnter)
             setInterval(chargeMessage,5000)
-
-
-
-
         }
 
-
         function verifieEnter(e){
-
             if (e.key === "Enter"){
-
                 ajoutMessage()
-
             }
         }
         function chargeMessage()
         {
-
-
-
             axios.post('{{ path('get_direct_private',{token: '47f6edd3-438f-416d-a4f7-99d76c21c181'}) }}')
-
                 .then(function (response) {
                     //console.table(response.data)
                         let discusion  = document.getElementById('tes')
@@ -52,50 +38,30 @@
                             return `<div><p>${message.message}</p></div>`
                         }).join('');
                         discusion.innerHTML = html;
-
-
                 }
                 )
                 .catch(function (error) {
                     console.log(error.response.data);
                 });
-
-
-
         }
-
         function ajoutMessage(){
-
             let message = document.querySelector("#text").value
             console.log(message)
             if (message !== ""){
                 let json = {
-
                 };
                 json['message'] =  message
-
-
-
-
                 //creer un json a partir d'un tableau
-
                 let resultJson =  json;
-
-
                 console.log(resultJson)
                 axios.post("{{ path('add_direct_private',{token: '47f6edd3-438f-416d-a4f7-99d76c21c181'}) }}",resultJson)
                 .then(function (response) {
                         document.querySelector("#text").value=""
                         console.log(response.data.message);
                         chargeMessage()
-
-
-
-                })
-                    .catch(function (error) {
+                }).catch(function (error) {
                         console.log(error.request);
                     });
-
             }
         }
     </script>

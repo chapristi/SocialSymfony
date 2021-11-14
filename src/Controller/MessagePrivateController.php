@@ -57,13 +57,13 @@ class MessagePrivateController extends AbstractController
     #[Route('/message/add/{token}', name: 'add_direct_private' , methods: ["POST"])]
     public function add($token , Request $request): Response
     {
-        /*
+
             $friend = $this ->  getDoctrine() -> getManager() -> getRepository(BFF::class)->findOneBy(["token" => $token]);
 
             $PrivateMessages = new MessagePrivate();
 
             $PrivateMessages -> setSender($this -> getUser());
-            $PrivateMessages -> setMessage($request -> request -> get('message'));
+            $PrivateMessages -> setMessage($request  -> toArray()['message']);
             if ($this -> getUser() === $friend -> getSender()){
                 $PrivateMessages -> setReceiver($friend -> getReceiver());
             }else{
@@ -72,8 +72,8 @@ class MessagePrivateController extends AbstractController
             }
             $this ->  getDoctrine() -> getManager() -> persist($PrivateMessages);
             $this -> getDoctrine() -> getManager() -> flush();
-        */
-            return $this -> json(["message" => $request -> request   ,'code' => 200  ]);
+
+            return $this -> json(["message" => $request  -> toArray()['message']  ,'code' => 200  ]);
 
 
 

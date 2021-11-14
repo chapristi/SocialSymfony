@@ -20,7 +20,7 @@
             chargeMessage()
             let texte = document.querySelector("#text")
             texte.addEventListener("keyup",verifieEnter)
-            setInterval(chargeMessage,1000)
+            setInterval(chargeMessage,5000)
 
 
 
@@ -79,17 +79,19 @@
 
                 //creer un json a partir d'un tableau
 
-                let resultJson =  JSON.stringify(json)
+                let resultJson =  json;
 
 
                 console.log(resultJson)
                 axios.post("{{ path('add_direct_private',{token: '47f6edd3-438f-416d-a4f7-99d76c21c181'}) }}",resultJson)
                 .then(function (response) {
                         document.querySelector("#text").value=""
-                        console.log(response.data);
+                        console.log(response.data.message);
+                        chargeMessage()
 
 
-                    })
+
+                })
                     .catch(function (error) {
                         console.log(error.request);
                     });

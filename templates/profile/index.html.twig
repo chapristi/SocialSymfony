@@ -4,8 +4,49 @@
 
 {% block body %}
 
-    <a href="{{ path('add_friend',{token: user.token}) }}">
-     <img src="{{ asset('assets/img/add-friend.png') }}" width="30px" height="30px" class="friend-icon">
+    <div class="alert">
+        <p id="pop-up"></p>
+    </div>
+    <a id="js-select" href="{{ path('add_friend',{token: user.token}) }}">
+        {% if isFriend %}
+            <img id="js-selec" src="{{ asset('assets/img/1500455.png') }}" width="30px" height="30px" class="friend-icon">
+
+            {% else %}
+                <img id="js-selec" src="{{ asset('assets/img/add-friend.png') }}" width="30px" height="30px" class="friend-icon">
+
+        {% endif %}
     </a>
+
+
+{% endblock %}
+{% block javascript %}
+c
+    <script>
+    document.getElementById("js-select").addEventListener("click", function(event){
+        event.preventDefault()
+
+        axios.post("{{ path('add_friend',{token: user.token}) }}",{})
+            .then(function (response) {
+                //console.table est une fonction interessante qui formate un tableau de facon estetique dans la console
+
+                document.getElementById('pop-up').innerHTML = response.data[0].message
+                if (response.data[0].isFriend === true){
+                    document.getElementById('pop-up').className = "alert alert-success"
+                    document.getElementById('js-selec').src="{{ asset('assets/img/1500455.png')  }}"
+
+                }else {
+                    document.getElementById('pop-up').className = "alert alert-danger"
+                    document.getElementById('js-selec').src="{{ asset('assets/img/add-friend.png') }}"
+                }
+
+
+
+            })
+            .catch(function (error) {
+                console.log(error.response.data);
+            });
+
+});
+</script>
 
 {% endblock %}

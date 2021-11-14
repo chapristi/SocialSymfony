@@ -10,17 +10,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FriendController extends AbstractController
 {
-    #[Route('/ajouter-un-amis/{token}', name: 'add_friend')]
-    public function index($token,FriendService $friendService): Response
+    #[Route('/ajouter-un-amis/{token}', name: 'add_friend',methods : ["POST"])]
+    public function index($token,FriendService $friendService)
     {
-       $friendService -> addFriend($token,$this -> getUser());
-       return  $this -> redirectToRoute('main');
+
+
+        $add = $friendService -> addFriend($token,$this -> getUser() );
+
+        return $this -> json($add,200);
+
+
+
+
     }
 
-    #[Route('/accepter-la-demande/{token}', name: 'accept_friend')]
+    #[Route('/accepter-la-demande/{token}', name: 'accept_friend',methods : ["POST"])]
     public function accept($token,FriendService $friendService): Response
     {
         $friendService -> acceptFriend($token);
-        return  $this -> redirectToRoute('main');
+
     }
 }

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BFF;
 use App\Entity\MessagePrivate;
-use App\Form\MessagePrivateType;
+use phpDocumentor\Reflection\DocBlock\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class MessagePrivateController extends AbstractController
     #[Route('/message/direct/{token}', name: 'direct_private')]
     public function direct($token , Request $request): Response
     {
-
+        /*
         $friend = $this ->  getDoctrine() -> getManager() -> getRepository(BFF::class)->findOneBy(["token" => $token]);
 
 
@@ -45,13 +45,64 @@ class MessagePrivateController extends AbstractController
             $this -> getDoctrine() -> getManager() -> flush();
 
 
+
         }
+          */
 
 
         return $this->render('message_private/index.html.twig', [
-            'form' => $form -> createView(),
 
         ]);
     }
+    #[Route('/message/add/{token}', name: 'add_direct_private' , methods: ["POST"])]
+    public function add($token , Request $request): Response
+    {
+        /*
+            $friend = $this ->  getDoctrine() -> getManager() -> getRepository(BFF::class)->findOneBy(["token" => $token]);
+
+            $PrivateMessages = new MessagePrivate();
+
+            $PrivateMessages -> setSender($this -> getUser());
+            $PrivateMessages -> setMessage($request -> request -> get('message'));
+            if ($this -> getUser() === $friend -> getSender()){
+                $PrivateMessages -> setReceiver($friend -> getReceiver());
+            }else{
+                $PrivateMessages -> setReceiver($friend -> getSender());
+
+            }
+            $this ->  getDoctrine() -> getManager() -> persist($PrivateMessages);
+            $this -> getDoctrine() -> getManager() -> flush();
+        */
+            return $this -> json(["message" => $request -> request   ,'code' => 200  ]);
+
+
+
+    }
+    #[Route('/message/get/{token}', name: 'get_direct_private' , methods: ["POST"])]
+
+    public function getMessages( $token , Request $request)
+    {
+        $friend = $this ->  getDoctrine() -> getManager() -> getRepository(BFF::class)->findOneBy(["token" => $token]);
+
+
+
+        $messages = $this ->  getDoctrine() -> getManager() -> getRepository(MessagePrivate::class)->getMessages($friend -> getSender(), $friend -> getReceiver());
+
+        $jsonMessages = [];
+        foreach ($messages as   $message){
+            $jsonMessages[]  = [
+                'sender' => $message -> getSender() -> getUsername(),
+                'receiver' => $message -> getReceiver() -> getUsername(),
+                'message' => $message -> getMessage(),
+                'createdAt' => new \DateTime($message -> getCreatedAt()->format('Y-m-d H:i:s')),
+            ];
+        }
+
+
+        return $this ->json(
+            $jsonMessages,200
+        );
+    }
+
 
 }

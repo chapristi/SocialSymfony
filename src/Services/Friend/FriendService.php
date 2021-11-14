@@ -6,6 +6,8 @@ use App\Entity\BFF;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class FriendService implements FriendServiceInterface
 {
@@ -23,17 +25,39 @@ class FriendService implements FriendServiceInterface
      *
      * Add new friend
      */
-    public function addFriend(string $token, User $sender)
+    public function addFriend(string $token, User $sender):?array
     {
+        $infos = [];
         $friend = new BFF();
-        $receiver = $this -> entityManager -> getRepository(User::class)->findOneBy(["token" => $token]);
-        if (!$this -> isFriend($sender,$receiver)){
-            $friend -> setSender($sender);
-            $friend -> setReceiver($receiver);
-            $friend -> setToken(Uuid::uuid4());
-            $this -> entityManager -> persist($friend);
-            $this -> entityManager -> flush();
+        $receiver = $this->entityManager->getRepository(User::class)->findOneBy(["token" => $token]);
+        $isFriend = $this->isFriend($sender, $receiver);
+
+        if (!$isFriend) {
+
+            $friend->setSender($sender);
+            $friend->setReceiver($receiver);
+            $friend->setToken(Uuid::uuid4());
+            $this->entityManager->persist($friend);
+            $this->entityManager->flush();
+            $infos [] = [
+                "message" => "l'utilisateur est bien ajouté en ami",
+                "code" => 200,
+                "isFriend" => true,
+            ];
+        } else {
+            $this->entityManager->remove($isFriend[0]);
+            $this->entityManager->flush();
+            $infos [] = [
+                "message" => "l'utilisateur est supprimée de vos amis ",
+                "code" => 200,
+                "isFriend" => false
+            ];
         }
+
+
+        return $infos;
+
+
 
 
 

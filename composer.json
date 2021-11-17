@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
+        "paypal/rest-api-sdk-php": "*",
         "phpdocumentor/reflection-docblock": "^5.3",
         "ramsey/uuid": "^4.2",
         "sensio/framework-extra-bundle": "^6.1",

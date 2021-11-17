@@ -103,6 +103,9 @@
     "nikic/php-parser": {
         "version": "v4.13.1"
     },
+    "paypal/rest-api-sdk-php": {
+        "version": "v1.6.4"
+    },
     "phar-io/manifest": {
         "version": "2.0.3"
     },

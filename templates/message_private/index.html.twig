@@ -9,9 +9,7 @@
         <label for="text">Votre message</label>
         <input type="text" class="form-control" id="text"  placeholder="Enter a message">
     </div>
-
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 {% block javascript %}
     <script>
         window.onload = () => {
@@ -35,7 +33,7 @@
 
                         let messages = response.data
                         const  html = messages.map(function (message){
-                            return `<div><p>${message.message}</p></div>`
+                            return `<p><strong>${message.sender}</strong> : ${message.message}</p>`
                         }).join('');
                         discusion.innerHTML = html;
                 }
@@ -46,18 +44,15 @@
         }
         function ajoutMessage(){
             let message = document.querySelector("#text").value
-            console.log(message)
             if (message !== ""){
                 let json = {
                 };
                 json['message'] =  message
                 //creer un json a partir d'un tableau
                 let resultJson =  json;
-                console.log(resultJson)
                 axios.post("{{ path('add_direct_private',{token: '47f6edd3-438f-416d-a4f7-99d76c21c181'}) }}",resultJson)
                 .then(function (response) {
                         document.querySelector("#text").value=""
-                        console.log(response.data.message);
                         chargeMessage()
                 }).catch(function (error) {
                         console.log(error.request);

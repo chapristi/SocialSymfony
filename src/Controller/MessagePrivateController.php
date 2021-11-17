@@ -22,33 +22,7 @@ class MessagePrivateController extends AbstractController
     #[Route('/message/direct/{token}', name: 'direct_private')]
     public function direct($token , Request $request): Response
     {
-        /*
-        $friend = $this ->  getDoctrine() -> getManager() -> getRepository(BFF::class)->findOneBy(["token" => $token]);
-
-
-
-        $messages = $this ->  getDoctrine() -> getManager() -> getRepository(MessagePrivate::class)->getMessages($friend -> getSender(), $friend -> getReceiver());
-        $PrivateMessages = new MessagePrivate();
-        $form = $this -> createForm(MessagePrivateType::class,$PrivateMessages);
-        $form -> handleRequest($request);
-        if ($form -> isSubmitted() && $form -> isValid())
-        {
-            $PrivateMessages = $form-> getData();
-            $PrivateMessages -> setSender($this -> getUser());
-            if ($this -> getUser() === $friend -> getSender()){
-                $PrivateMessages -> setReceiver($friend -> getReceiver());
-            }else{
-                $PrivateMessages -> setReceiver($friend -> getSender());
-
-            }
-            $this ->  getDoctrine() -> getManager() -> persist($PrivateMessages);
-            $this -> getDoctrine() -> getManager() -> flush();
-
-
-
-        }
-          */
-
+        
 
         return $this->render('message_private/index.html.twig', [
 
@@ -73,8 +47,7 @@ class MessagePrivateController extends AbstractController
             $this ->  getDoctrine() -> getManager() -> persist($PrivateMessages);
             $this -> getDoctrine() -> getManager() -> flush();
 
-            return $this -> json(["message" => $request  -> toArray()['message']  ,'code' => 200  ]);
-
+            return $this -> json(["message" => "message bien envoyé" ,'code' => 200  ]);
 
 
     }

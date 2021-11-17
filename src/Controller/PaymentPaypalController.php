@@ -7,8 +7,8 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
-use Paypal\Auth\OAuthTokenCredential;
-use Paypal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,8 +22,9 @@ class PaymentPaypalController extends AbstractController
         // After Step 1
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
-                'Ab6sJeLJJUQtUguEpd40ZRopfrOT51hvN0aUv1Z0K09D9dq2Y3UhZoFPEKewsg_OaT4seKO85Yis_8yz',     // ClientID
-                'EDIkP6MdTPd7TQT4iKaN1Y5Ke71fui_5KyWSbNbDRGO6RDqzw3evPw__Pm6E7Zcd5yhvpxnK-hDEZOr5'      // ClientSecret
+                'Ab6sJeLJJUQtUguEpd40ZRopfrOT51hvN0aUv1Z0K09D9dq2Y3UhZoFPEKewsg_OaT4seKO85Yis_8yz',
+                'EDIkP6MdTPd7TQT4iKaN1Y5Ke71fui_5KyWSbNbDRGO6RDqzw3evPw__Pm6E7Zcd5yhvpxnK-hDEZOr5',
+
             )
         );
 

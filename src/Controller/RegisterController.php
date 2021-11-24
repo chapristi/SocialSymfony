@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\VerifMail;
 use App\Form\RegisterType;
+use App\Message\MailNotification;
 use App\Services\Mail\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
@@ -23,7 +24,7 @@ class RegisterController extends AbstractController
         $this -> entityManager = $entityManager;
     }
     #[Route('/creer-votre-compte', name: 'register')]
-    public function index(Request $request,UserPasswordHasherInterface $passwordHasher, MailService $mail ): Response
+    public function index(Request $request,UserPasswordHasherInterface $passwordHasher ): Response
     {
         $notification = null;
         $user = new User();
@@ -51,13 +52,13 @@ class RegisterController extends AbstractController
                 $this -> entityManager -> persist($verifMail);
                 $this -> entityManager -> flush();
 
-                $mail -> sendMail(
-                    $user->getEmail(),
-                   'emaiil/email.html.twig',
+                $this -> dispatchMessage(new MailNotification( $user->getEmail(),
+                    'emaiil/email.html.twig',
                     "Vous pouvez deshormais verifier votre compte",
                     [
-                        'uuid' => $token,
-                    ]);
+                    'uuid' => $token,
+                    ]
+                ));
 
                 }
                 else{

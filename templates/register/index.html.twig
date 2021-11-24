@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %} creer votre compte {% endblock %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
     {{form(form)  }}
 {% endblock %}

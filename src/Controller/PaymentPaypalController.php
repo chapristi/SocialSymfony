@@ -19,45 +19,9 @@ class PaymentPaypalController extends AbstractController
     public function index(): Response
     {
 
-        // After Step 1
-        $apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'Ab6sJeLJJUQtUguEpd40ZRopfrOT51hvN0aUv1Z0K09D9dq2Y3UhZoFPEKewsg_OaT4seKO85Yis_8yz',
-                'EDIkP6MdTPd7TQT4iKaN1Y5Ke71fui_5KyWSbNbDRGO6RDqzw3evPw__Pm6E7Zcd5yhvpxnK-hDEZOr5',
 
-            )
-        );
 
-        $payer = new Payer();
-        $payer->setPaymentMethod('paypal');
 
-        $amount = new Amount();
-        $amount->setTotal('1.00');
-        $amount->setCurrency('USD');
-
-        $transaction = new Transaction();
-        $transaction->setAmount($amount);
-
-        $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl("https://example.com/your_redirect_url.html")
-            ->setCancelUrl("https://example.com/your_cancel_url.html");
-
-        $payment = new Payment();
-        $payment->setIntent('sale')
-            ->setPayer($payer)
-            ->setTransactions(array($transaction))
-            ->setRedirectUrls($redirectUrls);
-        try {
-            $payment->create($apiContext);
-            echo $payment;
-
-            echo "\n\nRedirect user to approval_url: " . $payment->getApprovalLink() . "\n";
-        }
-        catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            // This will print the detailed information on the exception.
-            //REALLY HELPFUL FOR DEBUGGING
-            echo $ex->getData();
-        }
 
 
 

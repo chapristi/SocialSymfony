@@ -8,7 +8,6 @@ framework:
              async: '%env(RABBITMQ_DSN)%'
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
-
         routing:
             # Route your messages to the transports
              'App\Message\MailNotification': async

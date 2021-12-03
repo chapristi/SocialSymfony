@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ProfileController!{% endblock %}
@@ -20,12 +21,15 @@
 
 {% endblock %}
 {% block javascript %}
-c
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
+
+        let path = "{{ path('add_friend',{token: user.token}) }}"
     document.getElementById("js-select").addEventListener("click", function(event){
         event.preventDefault()
 
-        axios.post("{{ path('add_friend',{token: user.token}) }}",{})
+        axios.post(path,{})
             .then(function (response) {
                 //console.table est une fonction interessante qui formate un tableau de facon estetique dans la console
 

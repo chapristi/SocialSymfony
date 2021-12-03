@@ -3,27 +3,46 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-
+<div id="notif"></div>
 <h1>Main</h1>
+    {#
     {% for message in app.flashes %}
        <p id="interdiction">{{ message[0]}} <p>
-
-
     {% endfor %}
+
+
     {%for friend in app.user.receiver %}
-        {# pour le moment apres on fera une requete personnalisé et srt on changera de page #}
+
         {% if friend.isAccepted == 0 %}
             <p>{{ friend.sender.username }}</p>
             <p>{{ friend.createdAt|date }}</p>
             <a href="{{ path("accept_friend",{token:friend.token})}}"> accepter la demande d'amis</a>
         {% endif %}
+
     {% endfor %}
 
+    #}
 
-    {% block javascripts %}
-
-    {% endblock %}
 {% endblock %}
 
 
+ {% block javascript %}
+     <script>
 
+         const url = new URL('http://localhost:8001/.well-known/mercure');
+         url.searchParams.append('topic', 'https://127.0.0.1:8000/message/direct/{token}');
+         const eventSource = new EventSource(url);
+
+         eventSource.onmessage = (e) => {
+             console.log(e)
+         }
+
+         window.addEventListener("beforeunload" ,() =>{
+             if (eventSource!=null){
+                 eventSource.close()
+             }
+         } )
+
+     </script>
+
+ {% endblock %}

@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\BFF;
 use App\Entity\MessagePrivate;
-use phpDocumentor\Reflection\DocBlock\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MessagePrivateController extends AbstractController
@@ -20,9 +21,20 @@ class MessagePrivateController extends AbstractController
         ]);
     }
     #[Route('/message/direct/{token}', name: 'direct_private')]
-    public function direct($token , Request $request): Response
+    public function direct($token , HubInterface $hub): Response
     {
-        
+
+
+        $update = new Update(
+            'https://127.0.0.1:8000/message/direct/'. $token,
+            json_encode([
+                "sender" => $this -> getUser() === null ? null : $this -> getUser()  ,
+                "code" => 200,
+                'status' => 'OutOfStock',
+                ])
+        );
+
+        $hub->publish($update);
 
         return $this->render('message_private/index.html.twig', [
 

@@ -7,9 +7,13 @@ use App\Entity\MessagePrivate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\Authorization;
+use Symfony\Component\Mercure\Hub;
 use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Publisher;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class MessagePrivateController extends AbstractController
 {
@@ -23,6 +27,7 @@ class MessagePrivateController extends AbstractController
     #[Route('/message/direct/{token}', name: 'direct_private')]
     public function direct($token , HubInterface $hub): Response
     {
+
 
 
         $update = new Update(

@@ -14,10 +14,11 @@ interface BasketInterface{
     public function get();
 
     /**
-     * @param int $id
+     *
      * @return mixed
      */
-    public function remove(int $id);
+
+    public function remove();
 
     /**
      * @param int $id

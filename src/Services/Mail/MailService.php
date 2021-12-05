@@ -10,7 +10,6 @@ use Symfony\Component\Mime\Address;
 class MailService implements MailServiceInterface
 {
 
-
     private MailerInterface $mailer;
     private LoggerInterface $loggerInterface;
     public function __construct(MailerInterface $mailer ,  LoggerInterface $loggerInterface)
@@ -24,21 +23,16 @@ class MailService implements MailServiceInterface
      * @param string $body
      * @param string $subject
      * @param array $params
-     *
-     *
      * Possibility to send an email
      */
     public function sendMail(string $user_mail, string $body, string $subject, array $params): void
     {
-
         $email = (new TemplatedEmail())
             ->from(new Address("chapristimailpro@gmail.com"))
             ->to($user_mail)
             ->subject($subject)
             ->htmlTemplate($body)
             ->context($params)
-
-
         ;
         try {
             $this->mailer->send($email);
@@ -47,8 +41,6 @@ class MailService implements MailServiceInterface
                 'exception' => $e,
             ]);
         }
-
-
     }
 
 }

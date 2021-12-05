@@ -4,5 +4,15 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    {{form(form)  }}
+    {{ form_start(form) }}
+    {{  form_row(form.email)}}
+    <p id="erreurMail"></p>
+    {{ form_row(form.password.first) }}
+    <p id="erreurPassword"></p>
+    {{ form_row(form.password.second) }}
+
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('assets/js/form/inscriptionFormVerif.js') }}"></script>
 {% endblock %}

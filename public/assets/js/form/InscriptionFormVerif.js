@@ -1,12 +1,12 @@
-const password = document.getElementById("password")
-const mail  = document.getElementById("mail")
+const password = document.getElementById("register_password_first")
+const mail  = document.getElementById("register_email")
 const erreurPaswword = document.getElementById("erreurPassword")
 const erreurMail = document.getElementById("erreurMail")
 const verifMail =  (value) =>  {
     regex =  String(value)
         .toLowerCase()
         .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,5}))$/
         );
     if(regex === null){
         erreurMail.textContent= "l'email doit etre valide"
@@ -31,6 +31,7 @@ const verifPassword = (value) => {
         erreurPaswword.style.color = "green"
     }
 }
+
 mail.addEventListener("input",(e)=>{
     verifMail(e.target.value)
 });

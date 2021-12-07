@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ShopController!{% endblock %}
+
+{% block body %}
+
+    <div class="card align-items-center " style="width: 18rem;">
+        <img class="card-img-top" src="{{ asset("uploads/"  ~ product.illustration )  }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ (product.description|raw )   }} </p>
+        </div>
+        <div class="card-body">
+            <a href="{{ path("add_to_cart",{"id"  : product.id}) }}" class="card-link"><img height="25" width="25" src="{{ asset("/assets/img/ajouter-un-panier.png") }}"></a>
+
+        </div>
+    </div>
+{% endblock %}

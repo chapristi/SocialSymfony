@@ -2,6 +2,7 @@
 namespace App\Services\Payment\Basket;
 
 
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -15,6 +16,7 @@ class Basket implements BasketInterface {
     }
     public function add(int $id)
     {
+
         $cart = $this -> session -> get('cart', []);
         if(!empty($cart[$id])){
             $cart[$id] ++;

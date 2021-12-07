@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ShopController!{% endblock %}
+
+{% block body %}
+{% for products in product %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ asset("uploads/"  ~ products.illustration )  }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ products.name }}</h5>
+            <p class="card-text">{{ (products.description|slice(0,100)|raw )   }} ...   </p><br>
+            <h4>seulement à {{ (products.price / 100)|number_format(2, '.', ',') }} €</h4><br>
+            <a href="{{path( "shop_by_slug",{"slug" :  products.slug}) }}" class="btn btn-outline-primary">En savoir plus...</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

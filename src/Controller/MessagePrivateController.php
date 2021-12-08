@@ -28,7 +28,7 @@ class MessagePrivateController extends AbstractController
 
 
         $update = new Update(
-            'https://127.0.0.1:8000/message/direct/'. $token,
+        [sprintf("https://127.0.0.1:8000/message/direct/{$token}")],
             json_encode([
                 "sender" => $this -> getUser() === null ? null : $this -> getUser()  ,
                 "code" => 200,

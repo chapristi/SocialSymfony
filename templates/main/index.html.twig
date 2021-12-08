@@ -29,7 +29,7 @@
  {% block javascript %}
      <script>
 
-         const url = new URL('http://localhost:8001/.well-known/mercure');
+         const url = new URL('http://localhost:3000/.well-known/mercure');
          url.searchParams.append('topic', 'https://127.0.0.1:8000/message/direct/{token}');
          const eventSource = new EventSource(url);
 

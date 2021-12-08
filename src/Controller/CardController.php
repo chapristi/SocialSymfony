@@ -28,28 +28,28 @@ class CardController extends AbstractController
         $product = $this ->  entityManager -> getRepository(Product::class)->findOneBy(["id" => $id]);
         if (!$product){
             $this -> addFlash("error","vous ne pouvez pas effectuer cette action pour le moment ");
-            return $this->redirectToRoute("main");
+            return $this->redirectToRoute("account");
         }
 
         $cart -> add($id);
-        return $this -> redirectToRoute('main');
+        return $this -> redirectToRoute('account');
     }
     #[Route('/cart/remove', name: 'remove_my_cart')]
     public function remove(Basket $cart): Response
     {
         $cart ->remove();
-        return $this -> redirectToRoute('main');
+        return $this -> redirectToRoute('account');
     }
     #[Route('/cart/delete/{id}', name: 'delete_to_cart')]
     public function delete(Basket $cart,$id): Response
     {
         $cart ->delete($id);
-        return $this -> redirectToRoute('main');
+        return $this -> redirectToRoute('account');
     }
     #[Route('/cart/decrease/{id}', name: 'decrease_to_cart')]
     public function decrease(Basket $cart,$id): Response
     {
         $cart ->decrease($id);
-        return $this -> redirectToRoute('main');
+        return $this -> redirectToRoute('account');
     }
 }
